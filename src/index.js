@@ -1,17 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Route, Link } from 'react-router-dom';
+import  {createPost, deletePost, Login, register, update, viewPost, welcomePage } from './components';
+import '../src/style.css';
+import { callApi } from './util';
+
+const { REACT_APP_BASE_URL } = process.env;
+
+const App = () => {
+  const [posts, setPosts] = useState([]);
+    const [token, setToken] = useState('');
+    const [user, setUser] = useState('');
+    const [postId, setPostId] = useState('');
+    const [messages, setMessages] = useState([]);
+    
+    const fetchPosts = async () => {
+        const response = await callApi({
+            url: '/posts',
+            token
+        });
+        const allPosts = response.data.posts;
+        if(allPosts) setPosts(allPosts);
+    }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  <App/>,
+  document.getElementById('App'),
+)};
