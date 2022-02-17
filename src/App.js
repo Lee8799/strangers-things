@@ -14,7 +14,7 @@ import searchPost from './Components/searchPost';
 
 
 import '../src/style.css'
-import { callApi } from './util';
+import { callApi } from './api';
 
 const { REACT_APP_BASE_URL } = process.env;
 

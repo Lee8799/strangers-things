@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
- import { loginUser } from "https://strangers-things.herokuapp.com/api/";
+ import { registerUser } from "https://strangers-things.herokuapp.com/api/";
 
- const Login = (props) => {
+ const Register = (props) => {
    const { setIsLoggedIn } = props;
 
    const [username, setUsername] = useState("");
@@ -15,14 +15,14 @@ import React, { useState } from "react";
          event.preventDefault();
 
          try {
-           const result = await loginUser(username, password);
+           const result = await registerUser(username, password);
            setIsLoggedIn(true);
          } catch (error) {
            setErrorMessage(error.message);
          }
        }}
      >
-       <h3>Sign in to your existing account!</h3>
+       <h3>Sign up for a new account!</h3>
        <input
          type="text"
          value={username}
@@ -41,4 +41,7 @@ import React, { useState } from "react";
    );
  };
 
- export default Login;
+ export default Register;
+
+
+
