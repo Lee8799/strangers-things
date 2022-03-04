@@ -1,7 +1,7 @@
 import React from "react";
 
 const PostList = (props) => {
-  const { postList, setEditablePost } = props;
+  const { PostList, setEditPost } = props;
 
   return (
     <div
@@ -16,7 +16,7 @@ const PostList = (props) => {
       }}
     >
       <h3>All Posts</h3>
-      {postList.map((post, idx) => {
+      {PostList.map((post, idx) => {
         return (
           <div
             className="post"
@@ -32,11 +32,8 @@ const PostList = (props) => {
             {post.isAuthor ? (
               <button
                 onClick={() => {
-                  setEditablePost(post);
-                }}
-              >
-                EDIT
-              </button>
+                  setEditPost(post);
+                }}>EDIT</button>
             ) : null}
           </div>
         );

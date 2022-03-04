@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
-import deletePost from './Components/deletePost';
-import login from './Components/login';
-import welcomePage from './Components/welcomePage';
-import logOut from './Components/logOut';
-import createPost from './Components/createPost';
-import viewPost from './Components/viewPost';
-import myProfile from './Components/myProfile';
-import searchPost from './Components/searchPost';
+// import deletePost from './Components/deletePost';
+// import login from './Components/login';
+// import welcomePage from './Components/welcomePage';
+// import logOut from './Components/logOut';
+// import createPost from './Components/createPost';
+// import viewPost from './Components/viewPost';
+// import myProfile from './Components/myProfile';
+// import searchPost from './Components/searchPost';
 
 
 import '../src/style.css'

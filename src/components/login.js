@@ -1,44 +1,56 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import swal from 'sweetalert';
+import { login, setToken } from '../api';
 
- import { loginUser } from "https://strangers-things.herokuapp.com/api/";
+const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
- const Login = (props) => {
-   const { setIsLoggedIn } = props;
+    const handleLogin = async (event) => {
+        try {
+            event.preventDefault();
+            const result = await login(username, password);
+            if (result.error) {
+                setUsername('')
+                setPassword('')
+                swal({
+                    title: "Sorry!",
+                    text: "Username or password is incorrect. Please try again",
+                    icon: "error",
+                    button: "Try again",
+                  });
+            } else {
+                setToken(result.token);
+                if (result.user && result.user.username) {
+                    setUsername(result.user.username);
+                    location.href = "/home/";
+                    swal({
+                        title: "Success",
+                        text: "You are now logged in!",
+                        icon: "success",
+                      });
+                }
+            }
+            } catch(error) {
+            console.error(error)
+        } 
+}
+    return (
+  <div className="form-signin">
+      <form onSubmit={handleLogin}>
+          <div className="form-group">
+              <h1 className="sign-up">Please Sign Up</h1>
+            <label> Username </label>
+            <input type="text" value={username} onChange={(e) => {setUsername(e.target.value)}} /> 
+          </div>
+          <div className="form-group">
+            <label> Password </label>
+            <input type="text" value={password} onChange={(e) => {setPassword(e.target.value)}} />  
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
+  </div>
+        )
+    }
 
-   const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
-   const [errorMessage, setErrorMessage] = useState(null);
-
-   return (
-     <form
-       onSubmit={async (event) => {
-         event.preventDefault();
-
-         try {
-           const result = await loginUser(username, password);
-           setIsLoggedIn(true);
-         } catch (error) {
-           setErrorMessage(error.message);
-         }
-       }}
-     >
-       <h3>Sign in to your existing account!</h3>
-       <input
-         type="text"
-         value={username}
-         onChange={(event) => setUsername(event.target.value)}
-         placeholder="username"
-       />
-       <input
-         type="password"
-         value={password}
-         onChange={(event) => setPassword(event.target.value)}
-         placeholder="password"
-       />
-       {errorMessage ? <h5 className="error">{errorMessage}</h5> : null}
-       <button>Sign Up!</button>
-     </form>
-   );
- };
-
- export default Login;
+export default Login;

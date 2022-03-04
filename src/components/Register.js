@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
- import { registerUser } from "https://strangers-things.herokuapp.com/api/";
+ import { registerUser } from "https://strangers-things.herokuapp.com/api/2110-vpi-web-pt";
 
  const Register = (props) => {
    const { setIsLoggedIn } = props;
