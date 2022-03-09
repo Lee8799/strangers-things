@@ -10,13 +10,15 @@ const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
 
 import {
     Auth,
-    Login,
-    Logout,
+    login,
+    logOut,
     PostForm,
     PostList,
     Register,
-    update,
     welcome,
+    message,
+    update,
+    NavBar
 
 } from './components';
 

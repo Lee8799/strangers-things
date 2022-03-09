@@ -1,10 +1,10 @@
 export { default as Auth } from './Auth';
 // export { default as index } from './index';
 export { default as PostForm } from './PostForm';
-export { default as Login } from './Login';
-export { default as Logout } from './Logout';
+export { default as login } from './Login';
+export { default as logOut } from './Logout';
 export { default as message } from './message';
-export { default as NavBar } from './NavBar';
+export { default as navBar } from './NavBar';
 export { default as PostList } from './PostList';
 export { default as welcome } from './welcome';
 export { default as update } from './update';

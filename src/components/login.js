@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import swal from 'sweetalert';
 import { login, setToken } from '../api';
 
-const Login = () => {
+const login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -53,4 +53,4 @@ const Login = () => {
         )
     }
 
-export default Login;
+export default login;

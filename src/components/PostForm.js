@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PostForm from "./PostForm";
 import { callApi } from "../api";
 
 
@@ -31,7 +30,5 @@ const PostForm = ({ token, posts, setPosts }) => {
     </>
   )
 }
-
-
 
 export default PostForm;

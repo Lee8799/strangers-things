@@ -52,7 +52,7 @@ export const auth = async (username, password, isNew = false) => {
   return data;
 };
 
-export const hitAPI = async (method, endpoint, bodyObj) => {
+export const callApi = async (method, endpoint, bodyObj) => {
   const payload = {
     method: method,
     headers: buildHeaders(),

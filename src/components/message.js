@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { sendMessage } from "../api";
+
 
 
 const Message = ({ token, fetchPosts }) => {

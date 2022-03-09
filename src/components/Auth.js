@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { auth } from "../api";
 
 const Auth = (props) => {
   const { setIsLoggedIn } = props;

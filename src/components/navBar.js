@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const NavBar = ({user}) => {
+const navBar = ({user}) => {
   return (
     <nav className="nav-bar">
       <Link to='/'> Home{" "}</Link> |
@@ -11,4 +11,4 @@ const NavBar = ({user}) => {
   )
 }
 
-export default NavBar;
+export default navBar;
