@@ -1,11 +1,8 @@
-export { default as Auth } from './Auth';
-// export { default as index } from './index';
+export { default as Login } from './Login';
+// export { index } from './index';
+export { default as NavBar } from './NavBar';
 export { default as PostForm } from './PostForm';
-export { default as login } from './Login';
-export { default as logOut } from './Logout';
-export { default as message } from './message';
-export { default as navBar } from './NavBar';
-export { default as PostList } from './PostList';
-export { default as welcome } from './welcome';
-export { default as update } from './update';
+export { default as Posts } from './Posts';
 export { default as Register } from './Register';
+export { default as SingleMessage } from './SingleMessage';
+export { default as SinglePost } from './SinglePost';

@@ -1,47 +1,65 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
- import { registerUser } from "https://strangers-things.herokuapp.com/api/2110-vpi-web-pt";
-
- const Register = (props) => {
-   const { setIsLoggedIn } = props;
-
-   const [username, setUsername] = useState("");
-   const [password, setPassword] = useState("");
-   const [errorMessage, setErrorMessage] = useState(null);
-
-   return (
-     <form
-       onSubmit={async (event) => {
-         event.preventDefault();
-
-         try {
-           const result = await registerUser(username, password);
-           setIsLoggedIn(true);
-         } catch (error) {
-           setErrorMessage(error.message);
-         }
-       }}
-     >
-       <h3>Sign up for a new account!</h3>
-       <input
-         type="text"
-         value={username}
-         onChange={(event) => setUsername(event.target.value)}
-         placeholder="username"
-       />
-       <input
-         type="password"
-         value={password}
-         onChange={(event) => setPassword(event.target.value)}
-         placeholder="password"
-       />
-       {errorMessage ? <h5 className="error">{errorMessage}</h5> : null}
-       <button>Sign Up!</button>
-     </form>
-   );
- };
-
- export default Register;
+const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
 
 
 
+const Register = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await fetch(`${BASE_URL}/users/register`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: {
+                    username: username,
+                    password: password,
+                }
+            })
+        });
+        const { data: { token } } = await response.json();
+
+        localStorage.setItem("account-token", token);
+
+        setUsername('');
+        setPassword('');
+        window.location.reload(false);
+
+
+    }
+
+    const locallySourcedToken = localStorage.getItem("account-token");
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="New Username" value={username} onChange={(event) => setUsername(event.target.value)}>
+
+                </input>
+                <br></br>
+                <input type="text" placeholder="New Password" value={password} onChange={(event) => setPassword(event.target.value)}>
+
+                </input>
+                <br></br>
+                <button type="submit">
+                    Create New Account
+                </button>
+            </form>
+            <div>
+                {
+                    locallySourcedToken && locallySourcedToken.length ? <div>You're logged in!</div> : null
+                }
+            </div>
+        </div>
+
+    )
+}
+
+
+export default Register;

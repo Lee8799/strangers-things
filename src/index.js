@@ -1,59 +1,51 @@
-
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-
-export { default as Register } from './Register';
-
-const cohort = '2110-USD-RM-WEB-PT';
+// import App from './App'; 
+ import React from 'react';
+ import ReactDOM from 'react-dom';
+ import { BrowserRouter as Router} from 'react-router-dom'
+ 
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
 
-import {
-    Auth,
-    login,
-    logOut,
-    PostForm,
-    PostList,
-    Register,
-    welcome,
-    message,
-    update,
-    NavBar
-
-} from './components';
+// import {
+//     Posts,
+//     Register,
+//     PostForm,
+//     Login,
+//     Message,
+//     NavBar
+// } from './components';
 
 const App = (props) => {
     return (
     <BrowserRouter>
-        <NavBar />
-        
+      <NavBar />
         <section id="postsection">
-            
-            <Route path="/posts">
+          <Route path="/posts">
+             <Posts />
+          </Route>
 
-                <Posts />
-            </Route>
-            <Route exact path="/">
+          <Route exact path="/">
+             <Posts />
+          </Route>
             
-                <Posts />
-            </Route>
-            <Route path="/register">
-                <Register />
-            </Route>
-            <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/profile">
-                {
-                    localStorage.getItem("account-token") ?
-                    <>
-                    <button className="logout-button" onClick={(event) => {
-                        localStorage.removeItem("account-token");
-                        event.preventDefault();
-                        window.location.reload(false);
-                        }}>Logout</button>
+          <Route path="/register">
+             <Register />
+          </Route>
+
+          <Route path="/login">
+             <Login />
+          </Route>
+
+          <Route path="/profile">
+            {
+              localStorage.getItem("account-token") ?
+                <>
+              <button className="logout-button" onClick={(event) => {
+                  localStorage.removeItem("account-token");
+                  event.preventDefault();
+                  window.location.reload(false);
+            }}>Logout</button>
                     <section>
-                        <Messages />
+                      <Messages />
                     </section></>
                     : <>
                     <section>
@@ -72,8 +64,10 @@ const App = (props) => {
     </BrowserRouter>
     )
 }
-
-ReactDOM.render(
-    <App />,
-    document.getElementById("app")
-);
+ 
+ ReactDOM.render(
+   <Router>
+       <App/>
+   </Router>,
+   document.getElementById('root')
+ );

@@ -1,56 +1,64 @@
 import React, { useState } from 'react';
-import swal from 'sweetalert';
-import { login, setToken } from '../api';
+import ReactDOM from 'react-dom';
 
-const login = () => {
+const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
+
+
+
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = async (event) => {
-        try {
-            event.preventDefault();
-            const result = await login(username, password);
-            if (result.error) {
-                setUsername('')
-                setPassword('')
-                swal({
-                    title: "Sorry!",
-                    text: "Username or password is incorrect. Please try again",
-                    icon: "error",
-                    button: "Try again",
-                  });
-            } else {
-                setToken(result.token);
-                if (result.user && result.user.username) {
-                    setUsername(result.user.username);
-                    location.href = "/home/";
-                    swal({
-                        title: "Success",
-                        text: "You are now logged in!",
-                        icon: "success",
-                      });
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await fetch(`${BASE_URL}/users/login`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: {
+                    username: username,
+                    password: password,
                 }
-            }
-            } catch(error) {
-            console.error(error)
-        } 
-}
-    return (
-  <div className="form-signin">
-      <form onSubmit={handleLogin}>
-          <div className="form-group">
-              <h1 className="sign-up">Please Sign Up</h1>
-            <label> Username </label>
-            <input type="text" value={username} onChange={(e) => {setUsername(e.target.value)}} /> 
-          </div>
-          <div className="form-group">
-            <label> Password </label>
-            <input type="text" value={password} onChange={(e) => {setPassword(e.target.value)}} />  
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-  </div>
-        )
+            })
+        });
+        const { data: { token } } = await response.json();
+
+        localStorage.setItem("account-token", token);
+
+        setUsername('');
+        setPassword('');
+        window.location.reload(false);
+
+
     }
 
-export default login;
+    const locallySourcedToken = localStorage.getItem("account-token");
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="Enter Username" value={username} onChange={(event) => setUsername(event.target.value)}>
+
+                </input>
+                <br></br>
+                <input type="text" placeholder="Enter Password" value={password} onChange={(event) => setPassword(event.target.value)}>
+
+                </input>
+                <br></br>
+                <button type="submit">
+                    Login
+                </button>
+            </form>
+            <div>
+                {
+                    locallySourcedToken && locallySourcedToken.length ? <div>You're logged in!</div> : null
+                }
+            </div>
+        </div>
+
+    )
+}
+
+export default Login;
