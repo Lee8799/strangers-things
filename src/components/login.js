@@ -1,64 +1,66 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { API } from "./app";
 
-const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
+const Login = (props) => {
+  const setToken = props.setToken;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  // const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState("");
 
+  const history = useHistory();
 
-
-const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const response = await fetch(`${BASE_URL}/users/login`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: {
-                    username: username,
-                    password: password,
-                }
-            })
-        });
-        const { data: { token } } = await response.json();
-
-        localStorage.setItem("account-token", token);
-
-        setUsername('');
-        setPassword('');
-        window.location.reload(false);
-
-
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!password || !username) {
+      setError("Invalid username or password");
+      console.log("hello");
     }
 
-    const locallySourcedToken = localStorage.getItem("account-token");
+    const resp = fetch(`${API}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Enter Username" value={username} onChange={(event) => setUsername(event.target.value)}>
-
-                </input>
-                <br></br>
-                <input type="text" placeholder="Enter Password" value={password} onChange={(event) => setPassword(event.target.value)}>
-
-                </input>
-                <br></br>
-                <button type="submit">
-                    Login
-                </button>
-            </form>
-            <div>
-                {
-                    locallySourcedToken && locallySourcedToken.length ? <div>You're logged in!</div> : null
-                }
-            </div>
-        </div>
-
-    )
-}
+    const info = await (await resp).json();
+    if (info.error) {
+      return setError(info.error.message);
+    }
+    setToken(info.data.token);
+    localStorage.setItem("token", info.data.token);
+    history.push("./Profile");
+    console.log("hello");
+  };
+  return (
+    <>
+      <h1>Login</h1>;
+      <form onSubmit={(e) => handleLogin(e)}>
+        <input
+          placeholder="Enter Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">submit</button>
+      </form>
+      <p>{error}</p>
+    </>
+  );
+};
 
 export default Login;

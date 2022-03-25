@@ -1,59 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { SinglePost, PostForm } from './index';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { API } from "./app";
 
-const BASE_URL = `https://strangers-things.herokuapp.com/api/${ cohort }`;
-
-
-const Posts = () => {
-    const [allPosts, setAllPosts] = useState([]);
-    const [form, setForm] = useState(false);
+const Posts = ({ posts, fetchPosts }) => {
+const [searchTerm, setSearchTerm] = useState('')
+console.log(searchTerm) 
 
 
-
-    const fetchAllPosts = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/posts`);
-            const data = await response.json();
-            console.log(data);
-            setAllPosts(data.data.posts);
-        }
-        catch (err) {
-            console.log(err);
-        }}
-    useEffect(() => {
-        fetchAllPosts();
-    }, []);
-    let totalPosts = null;
-
-    if (allPosts && allPosts.length) {
-        totalPosts = <div>
-            {
-                allPosts.map((post) => 
-                    <SinglePost key={post._id} post={post} />
-                    )
-            }
-            </div>
-
-    }
-
-    return (
-        <div className="app-page-view">
-            <h1>
-                Posts
-            </h1>
-            {
-                localStorage.getItem("account-token") ? 
-                form ?
-                <PostForm fetchAllPosts={fetchAllPosts} setForm={setForm} />
-                : <button className="create-post-button" onClick={() => setForm(true)}>Create New Post</button>
-                : null
-            }
-            {totalPosts}
-        </div>
-        )
-
+function postMatches(post, text) {
+  const {title, description, price, author: {username}, location}= post;
+  
+  if(title.toLowerCase().includes(text.toLowerCase()) || 
+  description.toLowerCase().includes(text.toLowerCase()) || 
+  price.toLowerCase().includes(text.toLowerCase()) || 
+  username.toLowerCase().includes(text.toLowerCase()) || 
+  location.toLowerCase().includes(text.toLowerCase())) {
+      return true;
+  }
 }
+  
+const filteredPosts = posts.filter(post => postMatches(post, searchTerm));
+
+const postsToDisplay = searchTerm.length ? filteredPosts : posts;
+
+
+
+
+  return (
+    <>
+      <h1>Posts</h1><Link to="/createPost">Create New Post</Link>
+      <form>
+        <h3>Search</h3>
+        <input 
+          value={searchTerm}
+          onChange = {(e) => {
+            e.preventDefault();
+            setSearchTerm(e.target.value);
+          postMatches()}}
+          placeholder = "Search Posts..."
+          />
+      </form>
+      {posts && postsToDisplay.map((post) => (
+        <div key={post._id}>
+          <h2>{post.title}</h2>
+          <p>{post.description}</p>
+          <h3>{post.price}</h3>
+          <h3>{post.location}</h3>
+          <Link to={`/posts/${post._id}`}>
+            <button>Details</button>
+          </Link>
+          <hr></hr>
+        </div>
+      ))}
+    </>
+  );
+};
 
 
 export default Posts;
