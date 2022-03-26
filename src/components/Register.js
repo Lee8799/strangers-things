@@ -42,7 +42,7 @@ const Register = (props) => {
 
   return (
     <>
-      <h1>Register</h1>;
+      <h1>Register</h1>
       <form onSubmit={(e) => handleRegister(e)}>
         <input
           placeholder="Enter Username"

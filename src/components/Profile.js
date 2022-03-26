@@ -12,7 +12,7 @@ const Profile = ({ user }) => {
 
   return (
     <>
-      <h1>Profile</h1>;
+      <h1>Profile</h1>
       <div id="messages">
         <h3>Messages</h3>
         <Messages />
