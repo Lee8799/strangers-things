@@ -1,10 +1,12 @@
+import React from 'react';
+
 const Home = () => {
     return (
       <>
     
-
-        <h1>Home</h1><h3>Welcome to Stranger's Things</h3>
+        <h1 className='welcome'>Welcome to Stranger's Things</h1>
       </>
+
     );
   };
   

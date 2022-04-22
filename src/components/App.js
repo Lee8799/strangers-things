@@ -4,6 +4,8 @@ import {
   Route,
 } from "react-router-dom/cjs/react-router-dom.min";
 import Posts from "./Posts";
+import CreateMessage from "./CreateMessage";
+import Message from "./Message";
 import Register from "./Register";
 import Home from "./Home";
 import Profile from "./Profile";
@@ -11,6 +13,8 @@ import Login from "./Login";
 import Navbar from "./NavBar";
 import CreatePost from "./CreatePost";
 import PostDetails from "./PostDetails";
+// import UnauthenticatedRoute from "./Unathenticatedroute";
+// import AuthenticatedRoute from "./AuthenticatedRoute";
 
 export const API =
   "https://strangers-things.herokuapp.com/api/2110-vpi-web-pt";
@@ -55,14 +59,14 @@ const App = () => {
   return (
     <>
       <Navbar setToken={setToken} setUser={setUser} />
-      <div id="container">
-        <div id="main-section">
+      
           <Route exact path="/">
             <Home />
           </Route>
 
           <Route exact path="/Posts">
             <Posts 
+           
             posts={posts}
             setPosts={setPosts}
             fetchPosts={fetchPosts}
@@ -85,18 +89,19 @@ const App = () => {
           </Route>
 
           <Route exact path="/Profile">
-            <Profile fetchUser={fetchUser} setToken={setToken} fetchPosts={fetchPosts} />
+            {/* <Profile fetchUser={fetchUser} setToken={setToken} fetchPosts={fetchPosts} /> */}
           </Route>
 
           <Route exact path="/PostDetails">
             <PostDetails />
           </Route>
 
-          <Route exact path="/Login">
-            <Login setToken={setToken} />
+          <Route exact path="/login">
+          <Login />
           </Route>
-        </div>
-      </div>
+
+          
+       
     </>
   );
 };

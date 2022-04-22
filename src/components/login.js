@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { API } from "./app";
 
 const Login = (props) => {
   const setToken = props.setToken;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
 
   const history = useHistory();
@@ -43,18 +42,21 @@ const Login = (props) => {
   };
   return (
     <>
-      <h1>Login</h1>;
+      <h1>Login</h1>
       <form onSubmit={(e) => handleLogin(e)}>
         <input
+        
           placeholder="Enter Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          
         />
         <input
           type="password"
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6}
         />
         <button type="submit">submit</button>
       </form>

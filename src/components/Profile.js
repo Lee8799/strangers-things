@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import reactRouterDom from "react-router-dom";
-import { API } from "./app";
-import { Link } from "react-router-dom";
+// import reactRouterDom from "react-router-dom";
+// import { API } from "./app";
+// import { Link } from "react-router-dom";
 import Messages from "./CreateMessage";
-const Profile = ({ user }) => {
-  const [posts, setPosts] = useState([]);
 
- const userPosts = () => {
-   
+
+const Profile = () => {
+
+const users = () => {
+  [posts, deletePost] = useState([]);
  }
 
   return (
@@ -18,10 +19,12 @@ const Profile = ({ user }) => {
         <Messages />
       </div>
       <div id="your posts">
-        <h3>Your Posts</h3>
+        
+       
       </div>
     </>
   );
 };
+
 
 export default Profile;

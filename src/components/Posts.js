@@ -30,7 +30,7 @@ const postsToDisplay = searchTerm.length ? filteredPosts : posts;
     <>
       <h1>Posts</h1><Link to="/createPost">Create New Post</Link>
       <form>
-        <h3>Search</h3>
+        <h3>Search</h3><Link to="/postsDetails">Search</Link>
         <input 
           value={searchTerm}
           onChange = {(e) => {

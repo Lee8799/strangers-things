@@ -11,7 +11,7 @@ const Register = (props) => {
 
   const history = useHistory();
 
-  const handleRegister = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (password !== confirm) {
@@ -42,27 +42,32 @@ const Register = (props) => {
 
   return (
     <>
-      <h1>Register</h1>
+
+
+      /* <h1>Register</h1>
       <form onSubmit={(e) => handleRegister(e)}>
         <input
           placeholder="Enter Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          minLength={4} required
         />
         <input
           placeholder="Enter Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6} required
         />
         <input
           placeholder="Confirm Password"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
+          required
         />
         <button type="submit">submit</button>
       </form>
     </>
   );
-};
+}; 
 
 export default Register;

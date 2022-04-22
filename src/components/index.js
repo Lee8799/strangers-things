@@ -1,9 +1,11 @@
 export { default as Login } from './Login';
-// export { index } from './index';
 export { default as NavBar } from './NavBar';
-export { default as PostForm } from './PostForm';
-export { default as Posts } from './Posts';
-export { default as Home } from './Home';
-export { default as SingleMessage } from './SingleMessage';
-export { default as SinglePost } from './SinglePost';
-export { default as Message } from './Message';
+export  { default as PostDetails } from './PostDetails';
+export  { default as Posts } from './Posts';
+export  { default as Home } from './Home';
+export  { default as CreateMessage } from './CreateMessage';
+export  { default as SinglePost } from './SinglePost';
+export  { default as Message } from './Message';
+export  { default as CreatePost } from './CreatePost';
+export  { default as Profile } from './Profile';
+export  { default as Register } from './Register';

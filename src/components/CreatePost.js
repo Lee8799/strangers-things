@@ -69,7 +69,7 @@ const CreatePost = ({ fetchPosts }) => {
           onChange={(e) => setItemLocation(e.target.value)}
         />
         <div>
-          <h4>Will Deliver?</h4>
+          
           <input
             type="checkbox"
             value={deliver}
