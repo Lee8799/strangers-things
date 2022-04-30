@@ -7,9 +7,6 @@ import Messages from "./CreateMessage";
 
 const Profile = () => {
 
-const users = () => {
-  [posts, deletePost] = useState([]);
- }
 
   return (
     <>

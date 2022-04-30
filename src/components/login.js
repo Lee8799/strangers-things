@@ -18,11 +18,9 @@ const Login = (props) => {
       console.log("hello");
     }
 
-    const resp = fetch(`${API}/users/login`, {
+    const resp = fetch(`${API}/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      
       body: JSON.stringify({
         user: {
           username,
